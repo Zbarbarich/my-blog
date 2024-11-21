@@ -1,0 +1,43 @@
+.blog-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .blog-list h1 {
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .blog-list article {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .blog-list h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .blog-list p {
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .blog-list button {
+    background: #e74c3c;
+    color: white;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .blog-list button:hover {
+    background: #c0392b;
+  }
+  
