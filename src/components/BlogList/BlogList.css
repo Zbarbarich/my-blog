@@ -28,16 +28,3 @@
     line-height: 1.6;
   }
   
-  .blog-list button {
-    background: #e74c3c;
-    color: white;
-    border: 0;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .blog-list button:hover {
-    background: #c0392b;
-  }
-  
