@@ -11,7 +11,7 @@ function App() {
         <BlogList posts={posts} />
       </main>
     </div>
-  );
+  ); 
 }
 
 export default App;
