@@ -10,7 +10,7 @@ function App() {
         <p>This is my first React component.</p>
       </main>
     </div>
-  );
+  ); 
 }
 
 
