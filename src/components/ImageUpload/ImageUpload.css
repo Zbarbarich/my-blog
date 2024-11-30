@@ -1,0 +1,31 @@
+.image-upload-button {
+  position: relative;
+  display: inline-block;
+}
+
+.file-input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.file-input + label {
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Make sure the label covers the entire button area */
+.image-upload-button label {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the button inside the label is clickable */
+.image-upload-button button {
+  pointer-events: none;
+}

@@ -1,21 +1,51 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CommentSection.css';
+import DOMPurify from 'dompurify';
+
 
 function CommentSection({ postId }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const MAX_COMMENT_LENGTH = 1000;
+  const MIN_COMMENT_INTERVAL = 30000; // 30 seconds
+  let lastCommentTime = 0;
+
+  const sanitizeComment = (text) => {
+    return DOMPurify.sanitize(text, {
+      ALLOWED_TAGS: [], // Strip all HTML
+      ALLOWED_ATTR: []
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
+    
+    const now = Date.now();
+    if (now - lastCommentTime < MIN_COMMENT_INTERVAL) {
+      alert('Please wait before posting another comment');
+      return;
+    }
 
+    const trimmedComment = newComment.trim();
+    if (!trimmedComment) return;
+    
+    if (trimmedComment.length > MAX_COMMENT_LENGTH) {
+      alert(`Comments must be less than ${MAX_COMMENT_LENGTH} characters`);
+      return;
+    }
+
+    const sanitizedComment = sanitizeComment(trimmedComment);
+    
     setComments(prevComments => [...prevComments, {
-      id: Date.now(),
-      text: newComment,
+      id: now,
+      text: sanitizedComment,
       timestamp: new Date().toISOString()
     }]);
+    
+    lastCommentTime = now;
     setNewComment('');
   };
 
@@ -64,7 +94,7 @@ function CommentSection({ postId }) {
 }
 
 CommentSection.propTypes = {
-  postId: PropTypes.number.isRequired
+  postId: PropTypes.string.isRequired
 };
 
 export default CommentSection;

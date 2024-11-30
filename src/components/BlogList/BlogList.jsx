@@ -6,30 +6,21 @@ function BlogList({ posts }) {
   return (
     <div className="blog-list">
       {posts.map(post => (
-        <BlogPost
-          key={post.id}
-          title={post.title}
-          content={post.content}
-          author={post.author}
-          date={post.date}
-          readTime={post.readTime}
-        />
+        <BlogPost key={post.id} {...post} />
       ))}
     </div>
   );
 }
 
 BlogList.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.required,
-      title: PropTypes.string.required,
-      content: PropTypes.string.required,
-      author: PropTypes.string.required,
-      date: PropTypes.string.required,
-      readTime: PropTypes.number.required
-    })
-  ).required
+  posts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    readTime: PropTypes.number.isRequired
+  })).isRequired
 };
 
 export default BlogList;

@@ -1,0 +1,152 @@
+.rich-editor {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  margin-bottom: 1rem;
+}
+
+.rich-editor__toolbar {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 0.5rem;
+  background: #f8f9fa;
+}
+
+.toolbar-button {
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-weight: bold;
+  color: #444;
+  transition: all 0.2s ease;
+}
+
+.toolbar-button:hover {
+  background: #e9ecef;
+  border-color: #ced4da;
+}
+
+.toolbar-button:active {
+  background: #dee2e6;
+}
+
+.rich-editor__content {
+  min-height: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  overflow-y: auto;
+  cursor: text;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+.rich-editor__content:empty:before {
+  content: attr(data-placeholder);
+  color: #6c757d;
+  pointer-events: none;
+}
+
+/* Formatting styles */
+.rich-editor__content strong {
+  font-weight: bold;
+}
+
+.rich-editor__content em {
+  font-style: italic;
+}
+
+.rich-editor__content h3 {
+  font-size: 1.17em;
+  margin: 1em 0 0.5em;
+}
+
+.rich-editor__content blockquote {
+  border-left: 3px solid #ccc;
+  margin: 0;
+  padding-left: 1em;
+  color: #666;
+}
+
+.rich-editor__content code {
+  background: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.rich-editor__content a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+/* Toolbar styles */
+.rich-editor__toolbar {
+  margin-bottom: 8px;
+  display: flex;
+  gap: 4px;
+}
+
+.toolbar-button {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toolbar-button:hover {
+  background: #f0f0f0;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.toolbar-button.active {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+  position: relative;
+}
+
+.toolbar-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: #0d6efd;
+  border-radius: 50%;
+}
+
+/* Override any ImageUpload specific styles */
+.rich-editor__toolbar .toolbar-button {
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Hide any drag-drop related elements from ImageUpload */
+.rich-editor__toolbar .image-upload-dropzone {
+  display: none;
+}
