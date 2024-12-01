@@ -4,15 +4,18 @@ import RichTextEditor from '../RichTextEditor/RichTextEditor';
 import TagInput from '../TagInput/TagInput';
 import './PostEditor.css';
 
+// Constants
 const MAX_DRAFT_SIZE = 50000; // 50KB limit
 
 function PostEditor({ content, onSave, onCancel }) {
+  // Form state
   const [title, setTitle] = useState(content.title || '');
   const [editorContent, setEditorContent] = useState(content.content || '');
   const [tags, setTags] = useState(content.tags || []);
   const [category, setCategory] = useState(content.category || 'general');
   const [errors, setErrors] = useState({});
 
+  // Load saved draft on mount
   useEffect(() => {
     const savedDraft = loadDraft();
     if (savedDraft) {
@@ -23,6 +26,7 @@ function PostEditor({ content, onSave, onCancel }) {
     }
   }, []);
 
+  // Form validation
   const validate = () => {
     const newErrors = {};
     if (!title.trim()) {
@@ -35,6 +39,7 @@ function PostEditor({ content, onSave, onCancel }) {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Save handlers
   const handleSave = (shouldPublish = false) => {
     if (!validate()) return;
 
@@ -53,14 +58,13 @@ function PostEditor({ content, onSave, onCancel }) {
       });
       localStorage.removeItem('postDraft');
     } else {
-      // Save to localStorage only
       saveDraft({
         title,
         content: editorContent,
         tags,
         category
       });
-      onCancel(); // Close the editor
+      onCancel();
     }
   };
 
@@ -87,17 +91,15 @@ function PostEditor({ content, onSave, onCancel }) {
       const draftWithExpiry = {
         data: draft,
         expiry: Date.now() + (24 * 60 * 60 * 1000),
-        version: '1.0' // For future compatibility
+        version: '1.0'
       };
       
       localStorage.setItem('postDraft', JSON.stringify(draftWithExpiry));
     } catch (error) {
       console.error('Failed to save draft:', error);
-      // Handle error appropriately
     }
   };
 
-  // Function to load draft and check expiration
   const loadDraft = () => {
     try {
       const saved = localStorage.getItem('postDraft');
@@ -105,7 +107,6 @@ function PostEditor({ content, onSave, onCancel }) {
 
       const parsed = JSON.parse(saved);
       
-      // Validate structure
       if (!parsed.data || !parsed.expiry || typeof parsed.expiry !== 'number') {
         throw new Error('Invalid draft structure');
       }
