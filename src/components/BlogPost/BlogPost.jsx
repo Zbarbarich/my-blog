@@ -16,13 +16,15 @@ const sanitizeConfig = {
   ALLOW_DATA_ATTR: false
 };
 
-function BlogPost({ id, title: initialTitle, content: initialContent, author, date, isPublished: initialPublishState = false }) {
+function BlogPost({ id, title: initialTitle, content: initialContent, author, date, isPublished: initialPublishState = false, tags, category, searchTerm, onNewTag, onPostUpdate }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [readTime, setReadTime] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(initialTitle);
   const [currentContent, setCurrentContent] = useState(initialContent);
   const [isPublished, setIsPublished] = useState(initialPublishState);
+  const [currentTags, setCurrentTags] = useState(tags || []);
+  const [currentCategory, setCurrentCategory] = useState(category || 'general');
 
   useEffect(() => {
     setReadTime(calculateReadTime(currentContent));
@@ -84,11 +86,29 @@ function BlogPost({ id, title: initialTitle, content: initialContent, author, da
       : currentContent;
 
   const handleSave = (updatedPost) => {
-    // Only update the live post if explicitly publishing
     if (updatedPost.shouldPublish) {
+      updatedPost.tags.forEach(tag => {
+        if (!currentTags.includes(tag)) {
+          onNewTag?.(tag);
+        }
+      });
+      
       setCurrentTitle(updatedPost.title);
       setCurrentContent(updatedPost.content);
+      setCurrentTags(updatedPost.tags);
+      setCurrentCategory(updatedPost.category);
       setIsPublished(true);
+
+      onPostUpdate?.({
+        id,
+        title: updatedPost.title,
+        content: updatedPost.content,
+        tags: updatedPost.tags,
+        category: updatedPost.category,
+        author,
+        date,
+        isPublished: true
+      });
     }
     setIsEditing(false);
   };
@@ -105,21 +125,33 @@ function BlogPost({ id, title: initialTitle, content: initialContent, author, da
   const postContent = {
     title: currentTitle,
     content: currentContent,
-    tags: [], 
-    category: 'general',
+    tags: currentTags,
+    category: currentCategory,
     isPublished
+  };
+
+  const highlightText = (text) => {
+    if (!searchTerm) return text;
+
+    const parts = text.split(new RegExp(`(${searchTerm})`, 'gi'));
+    return parts.map((part, index) => 
+      part.toLowerCase() === searchTerm.toLowerCase() ? (
+        <mark key={index} className="highlight">{part}</mark>
+      ) : part
+    );
   };
 
   return (
     <article className="blog-post">
       <div className="blog-post__header">
         <h2 className="blog-post__title">
-          {currentTitle}
+          {highlightText(currentTitle)}
         </h2>
         <div className="blog-post__meta">
           <span className="blog-post__author">By {author}</span>
           <time className="blog-post__date">{date}</time>
           <span className="blog-post__read-time">{readTime} min read</span>
+          <span className="blog-post__category">{currentCategory}</span>
           <button 
             className="blog-post__edit-btn"
             onClick={handleEdit}
@@ -128,6 +160,13 @@ function BlogPost({ id, title: initialTitle, content: initialContent, author, da
           </button>
         </div>
       </div>
+      <div className="blog-post__tags">
+        {currentTags.map((tag, index) => (
+          <span key={index} className="blog-post__tag">
+            {tag}
+          </span>
+        ))}
+      </div>
       
       <div className="blog-post__content">
         {isEditing ? (
@@ -135,13 +174,22 @@ function BlogPost({ id, title: initialTitle, content: initialContent, author, da
             content={postContent}
             onSave={handleSave}
             onCancel={handleCancel}
-            onChange={() => {}} // Remove onChange handling
+            onChange={() => {}}
           />
         ) : (
           <>
             <div className="markdown-content">
               <ReactMarkdown 
                 rehypePlugins={[rehypeRaw]}
+                components={{
+                  // Custom renderer for paragraphs to handle highlighting
+                  p: ({children}) => {
+                    if (typeof children === 'string') {
+                      return <p>{highlightText(children)}</p>;
+                    }
+                    return <p>{children}</p>;
+                  }
+                }}
                 children={DOMPurify.sanitize(displayContent, sanitizeConfig)}
               />
             </div>
@@ -172,7 +220,11 @@ BlogPost.propTypes = {
   content: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  isPublished: PropTypes.bool
+  isPublished: PropTypes.bool,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  category: PropTypes.string,
+  searchTerm: PropTypes.string,
+  onPostUpdate: PropTypes.func
 };
 
 export default BlogPost;

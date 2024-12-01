@@ -1,6 +1,6 @@
 .blog-post {
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 2rem;
   background: white;
   border-radius: 8px;
@@ -58,11 +58,16 @@
 }
 
 .blog-post__tag {
-  background: #e1f5fe;
-  color: #0288d1;
+  background: rgba(0, 128, 128, 0.1);
+  color: teal;
   padding: 0.25rem 0.75rem;
   border-radius: 16px;
   font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.blog-post__tag:hover {
+  background: rgba(0, 128, 128, 0.2);
 }
 
 .blog-post__footer {
@@ -109,14 +114,15 @@
   background: none;
   border: none;
   padding: 0;
-  color: #0066cc;
+  color: teal;
   cursor: pointer;
   font: inherit;
-  text-decoration: underline;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .blog-post__expand:hover {
-  color: #004499;
+  color: #006666;
 }
 
 .blog-post__edit-btn {
@@ -124,14 +130,15 @@
   background: none;
   border: none;
   padding: 0;
-  color: #0066cc;
+  color: teal;
   cursor: pointer;
   font: inherit;
-  text-decoration: underline;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .blog-post__edit-btn:hover {
-  color: #004499;
+  color: #006666;
 }
 
 .markdown-content {
@@ -185,4 +192,15 @@
   padding: 1em;
   border-radius: 3px;
   overflow-x: auto;
+}
+
+.highlight {
+  background-color: rgba(0, 128, 128, 0.2);
+  padding: 0 2px;
+  border-radius: 2px;
+  color: inherit;
+}
+
+.highlight:hover {
+  background-color: rgba(0, 128, 128, 0.3);
 }

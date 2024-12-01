@@ -1,0 +1,101 @@
+.blog-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  color: #000;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.filter-group label {
+  font-weight: 500;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #333;
+  cursor: pointer;
+  color: #fff;
+}
+
+.filter-header {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-group select:hover {
+  border-color: #999;
+}
+
+.tags-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.tag-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+  background-color: #fff;
+  flex: 0 1 auto;
+}
+
+.tag-checkbox:hover {
+  background-color: #f0f0f0;
+}
+
+.tag-checkbox input {
+  margin: 0;
+}
+
+.filter-group select option {
+  background-color: #333;
+  color: #fff;
+}
+
+.clear-filters-btn {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.clear-filters-btn:hover {
+  background-color: #c82333;
+}
+
+.filters-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}

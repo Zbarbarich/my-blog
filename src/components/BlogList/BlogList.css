@@ -10,12 +10,8 @@
     margin-bottom: 30px;
   }
   
-  .blog-list article {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  .blog-post-wrapper {
+    margin-bottom: 2rem;
   }
   
   .blog-list h2 {

@@ -1,0 +1,74 @@
+.blog-search {
+  margin-top: 3rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  max-width: 756px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 8rem 0.5rem 0.5rem;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.search-input:hover {
+  border-color: #666;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.search-input::placeholder {
+  color: #ccc;
+}
+
+.search-results-count {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+  pointer-events: none;
+  font-size: 0.9em;
+}
+
+.search-clear-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px 8px;
+  border-radius: 50%;
+}
+
+.search-clear-button:hover {
+  background: #f0f0f0;
+}
+
+/* Hide the default clear button */
+.search-input::-webkit-search-cancel-button {
+  display: none;
+}
